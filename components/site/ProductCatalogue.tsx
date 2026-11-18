@@ -12,7 +12,7 @@ export default function ProductCatalogue() {
   const initialCategory = params.get("category") ?? "All";
   const initialService = params.get("service") === "1";
   const [category, setCategory] = useState<string>(initialCategory);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(params.get("q") ?? "");
   const [sort, setSort] = useState("featured");
   const [onlyAvailable, setOnlyAvailable] = useState(false);
   const [serviceOnly, setServiceOnly] = useState(initialService);

@@ -47,6 +47,9 @@ lib/
   utils.ts                       formatting, stages, helpers
 ```
 
+### Design system
+The visual language follows the Afrimash agricultural marketplace reference: a white, compact e-commerce canvas, deep farm green `#0F4E08` for primary actions and prices, fresh lime green `#7AB312` for the sticky category bar, lime tinted `#EEF6E7` surfaces, `Open Sans` body text and `Lexend Deca` headings. Buttons use pill-shaped CTAs with 5px compact actions, product tiles are square-imaged cards with green prices, and the header leads with search. All tokens live in `app/globals.css` (`@theme`), so the whole app re-themes from one place.
+
 ### Demo state and authentication
 This deployment-ready front end uses a shared React context persisted to `localStorage` so the whole flow is usable without credentials:
 
