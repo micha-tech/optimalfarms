@@ -1,0 +1,389 @@
+/* ==========================================================================
+   Global Styles & Tailwind Base
+   ========================================================================== */
+
+/* Import fonts */
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap");
+
+/* CSS Variables - Professional Color Palette */
+:root {
+  --color-forest: #0f302f;
+  --color-forest-2: #164a45;
+  --color-forest-light: #22635e;
+  --color-leaf: #186e4e;
+  --color-leaf-light: #e8f6f0;
+  --color-gold: #c9a84d;
+  --color-gold-light: #f5f0e1;
+  --color-cream: #faf8f2;
+
+/* Utility classes (for consistency with existing markup) */
+.text-gold { color: var(--color-gold) }
+.bg-gold { background: var(--color-gold) }
+.bg-gold-light { background: var(--color-gold-light) }
+.border-gold { border-color: var(--color-gold) }
+  --color-ink: #17211d;
+  --color-muted: #6b7a75;
+  --color-border: #e4ebe5;
+  --color-surface: #ffffff;
+
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-sans: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+}
+
+/* Page-level base */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+/* Selection */
+::selection {
+  background: var(--color-gold);
+  color: var(--color-forest);
+}
+
+/* Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-muted) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-muted);
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   Base Component Styles
+   ========================================================================== */
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.1;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Primary button */
+.btn-primary {
+  background: var(--color-forest);
+  color: white;
+  box-shadow: 0 8px 20px -10px rgba(15, 48, 47, 0.4);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--color-forest-2);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px -12px rgba(15, 48, 47, 0.5);
+}
+
+/* Secondary/Outline button */
+.btn-outline {
+  background: white;
+  color: var(--color-forest);
+  border-color: var(--color-border);
+}
+
+.btn-outline:hover:not(:disabled) {
+  background: var(--color-gold-light);
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+/* Gold button */
+.btn-gold {
+  background: var(--color-gold);
+  color: #2b2308;
+}
+
+.btn-gold:hover:not(:disabled) {
+  background: #b89435;
+  transform: translateY(-1px);
+}
+
+/* Dark button */
+.btn-dark {
+  background: var(--color-forest);
+  color: white;
+}
+
+.btn-dark:hover:not(:disabled) {
+  background: var(--color-forest-2);
+}
+
+/* Ghost button */
+.btn-ghost {
+  color: var(--color-forest);
+  background: transparent;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: var(--color-gold-light);
+}
+
+/* Button sizes */
+.btn-sm {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.75rem;
+  border-radius: 0.45rem;
+}
+
+.btn-lg {
+  padding: 0.85rem 1.8rem;
+  font-size: 1rem;
+}
+
+/* Cards */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px -12px rgba(15, 48, 47, 0.15);
+  border-color: var(--color-gold-light);
+}
+
+/* Inputs */
+.input {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.85rem;
+  font-size: 0.875rem;
+  color: var(--color-ink);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.input:focus {
+  border-color: var(--color-leaf);
+  box-shadow: 0 0 0 3px rgba(24, 110, 78, 0.08);
+}
+
+.input::placeholder {
+  color: var(--color-muted);
+}
+
+.textarea {
+  min-height: 100px;
+  resize: vertical;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  border-radius: 0.5rem;
+  padding: 0.7rem 0.85rem;
+  font-size: 0.875rem;
+  color: var(--color-ink);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.textarea:focus {
+  border-color: var(--color-leaf);
+  box-shadow: 0 0 0 3px rgba(24, 110, 78, 0.08);
+}
+
+/* Labels */
+label.field {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  margin-bottom: 0.3rem;
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.badge-green {
+  background: #e8f6f0;
+  color: var(--color-leaf);
+}
+
+.badge-gold {
+  background: #f5f0e1;
+  color: var(--color-gold);
+}
+
+.badge-red {
+  background: #fef0f0;
+  color: #b2382b;
+}
+
+.badge-grey {
+  background: var(--color-border);
+  color: var(--color-muted);
+}
+
+.badge-blue {
+  background: #eef6ff;
+  color: #2365a5;
+}
+
+/* Eyebrow */
+.eyebrow {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 0.5rem;
+}
+
+/* Section titles */
+.section-title {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  line-height: 1.2;
+  color: var(--color-forest);
+  margin-bottom: 1.5rem;
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* ==========================================================================
+   Pattern/Textures
+   ========================================================================== */
+
+/* Hero pattern */
+.hero-pattern {
+  background-image:
+    radial-gradient(circle at 80% 20%, rgba(201, 168, 77, 0.18), transparent 35%),
+    radial-gradient(circle at 15% 80%, rgba(255, 255, 255, 0.08), transparent 40%),
+    linear-gradient(135deg, #0e302f 0%, #134a44 55%, #186e4e 100%);
+}
+
+.grid-pattern {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ==========================================================================
+   Layout Utilities
+   ========================================================================== */
+
+.container {
+  padding-inline: 1.5rem;
+  max-width: 1280px;
+  margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-inline: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-inline: 2.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    padding-inline: 3rem;
+  }
+}
+
+/* Section padding */
+.py-14 { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+.py-16 { padding-top: 4rem; padding-bottom: 4rem; }
+.py-20 { padding-top: 5rem; padding-bottom: 5rem; }
+.py-24 { padding-top: 6rem; padding-bottom: 6rem; }
+
+/* ==========================================================================
+   Accessibility
+   ========================================================================== */
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
