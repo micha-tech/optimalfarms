@@ -45,7 +45,7 @@ export default function TrackOrder() {
           <div><label className="field">Order reference or tracking code</label><input className="input" value={ref} onChange={(e) => setRef(e.target.value)} placeholder="ORF-261100-XXXX" /></div>
           <div><label className="field">Email address (optional)</label><input className="input" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" /></div>
           <div><label className="field">Secure code (optional)</label><input className="input" value={code} onChange={(e) => setCode(e.target.value)} placeholder="TRK-000000" /></div>
-          <button onClick={search} className="btn btn-primary h-[42px]"><Search size={16} /> Track</button>
+          <button onClick={search} className="btn btn-primary w-full md:w-auto"><Search size={16} /> Track Order</button>
         </div>
         {error && <p className="mt-3 flex items-center gap-1.5 text-[0.78rem] text-red-600"><AlertCircle size={14} /> {error}</p>}
       </div>
@@ -66,9 +66,9 @@ export default function TrackOrder() {
                 {[
                   ["Payment", order.paymentStatus], ["Method", order.paymentMethod], ["Delivery", order.deliveryMethod], ["Total", naira(order.total)],
                 ].map(([k, v]) => (
-                  <div key={k} className="rounded-lg bg-[#f7faf7] p-3">
+                  <div key={k} className="min-w-0 rounded-lg bg-[#f7faf7] p-2.5 sm:p-3">
                     <p className="text-[0.65rem] font-bold uppercase tracking-wider text-muted">{k}</p>
-                    <p className="mt-1 text-[0.78rem] font-bold text-forest">{v}</p>
+                    <p className="mt-1 truncate text-[0.72rem] font-bold text-forest sm:text-[0.78rem]">{v}</p>
                   </div>
                 ))}
               </div>
@@ -85,7 +85,7 @@ export default function TrackOrder() {
                     <div className="absolute left-0 top-3 h-1 rounded-full bg-leaf transition-all" style={{ width: `${(current / (deliveryStages.length - 1)) * 100}%` }} />
                     {deliveryStages.map((stage, i) => (
                       <div key={stage} className="relative z-10 flex w-1/12 flex-col items-center">
-                        <span className={`grid h-6 w-6 place-items-center rounded-full border-2 text-[0.6rem] font-bold ${i <= current ? "border-leaf bg-leaf text-white" : "border-[#d5dfd7] bg-white text-muted"}`}>{i < current ? <CheckCircle2 size={13} /> : i + 1}</span>
+                        <span className={`grid h-5 w-5 place-items-center rounded-full border-2 text-[0.5rem] font-bold sm:h-6 sm:w-6 sm:text-[0.6rem] ${i <= current ? "border-leaf bg-leaf text-white" : "border-[#d5dfd7] bg-white text-muted"}`}>{i < current ? <CheckCircle2 size={13} /> : i + 1}</span>
                         <span className={`mt-2 hidden text-center text-[0.58rem] font-semibold leading-tight sm:block ${i <= current ? "text-leaf" : "text-muted"}`}>{stage}</span>
                       </div>
                     ))}
@@ -152,7 +152,7 @@ export default function TrackOrder() {
       )}
 
       {!order && foundId === null && (
-        <div className="card mt-8 grid place-items-center p-14 text-center">
+        <div className="card mt-8 grid place-items-center p-8 text-center sm:p-14">
           <PackageCheck size={32} className="text-muted" />
           <h2 className="mt-4 font-display text-xl font-bold text-forest">Enter your order details above</h2>
           <p className="mt-2 max-w-md text-[0.82rem] text-muted">You can also view all your orders from your customer dashboard after signing in.</p>

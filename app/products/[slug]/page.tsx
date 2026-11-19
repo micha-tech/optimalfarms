@@ -73,15 +73,15 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               <h3 className="text-[0.9rem] font-bold text-forest">Specifications</h3>
               <div className="mt-3 divide-y divide-[#edf1ed]">
                 {product.specifications.map((spec) => (
-                  <div key={spec.label} className="grid grid-cols-[140px_1fr] gap-3 py-2.5 text-[0.82rem]">
+                  <div key={spec.label} className="grid grid-cols-[105px_1fr] gap-3 py-2.5 text-[0.82rem] sm:grid-cols-[140px_1fr]">
                     <span className="font-semibold text-muted">{spec.label}</span>
                     <span className="text-forest">{spec.value}</span>
                   </div>
                 ))}
-                <div className="grid grid-cols-[140px_1fr] gap-3 py-2.5 text-[0.82rem]">
+                <div className="grid grid-cols-[105px_1fr] gap-3 py-2.5 text-[0.82rem] sm:grid-cols-[140px_1fr]">
                   <span className="font-semibold text-muted">Unit</span><span className="text-forest">{product.unit}</span>
                 </div>
-                <div className="grid grid-cols-[140px_1fr] gap-3 py-2.5 text-[0.82rem]">
+                <div className="grid grid-cols-[105px_1fr] gap-3 py-2.5 text-[0.82rem] sm:grid-cols-[140px_1fr]">
                   <span className="font-semibold text-muted">Minimum order</span><span className="text-forest">{product.minOrder}</span>
                 </div>
               </div>
@@ -145,7 +145,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
         <div className="mt-14 border-t border-[#e6ece7] pt-10">
           <div className="mb-6 flex items-end justify-between"><h2 className="font-display text-2xl font-bold text-forest">You may also like</h2><Link href="/products" className="text-[0.78rem] font-bold text-leaf">View all <ArrowRight size={13} className="inline" /></Link></div>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{fallbackRelated.map((p) => <ProductCard key={p.id} product={p} />)}</div>
+          <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">{fallbackRelated.map((p) => <ProductCard key={p.id} product={p} />)}</div>
         </div>
       </div>
     </>

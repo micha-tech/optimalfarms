@@ -16,14 +16,14 @@ export default function ProductPurchase({ product }: { product: Product }) {
 
   return (
     <div className="card p-5">
-      <p className="font-display text-3xl font-bold text-forest">{naira(price)}</p>
+      <p className="font-display text-2xl font-bold text-forest sm:text-3xl">{naira(price)}</p>
       <p className="text-[0.78rem] text-muted">{product.unit} · Minimum order {product.minOrder}</p>
 
       <div className="mt-5">
         <label className="field">{product.service ? "Select service" : "Available options"}</label>
         <div className="flex flex-wrap gap-2">
           {product.variants.map((v) => (
-            <button key={v.label} onClick={() => setVariant(v.label)} className={`rounded-lg border px-3 py-2 text-[0.76rem] font-semibold transition ${variant === v.label ? "border-leaf bg-leaf-light text-leaf" : "border-[#dde5de] text-[#55635b] hover:border-leaf"}`}>
+            <button key={v.label} onClick={() => setVariant(v.label)} className={`min-h-[38px] rounded-lg border px-3 py-2 text-[0.76rem] font-semibold transition ${variant === v.label ? "border-leaf bg-leaf-light text-leaf" : "border-[#dde5de] text-[#55635b] hover:border-leaf"}`}>
               {v.label}
             </button>
           ))}
@@ -35,7 +35,7 @@ export default function ProductPurchase({ product }: { product: Product }) {
         <div className="flex items-center gap-3">
           <div className="flex items-center rounded-lg border border-[#d9e2db]">
             <button onClick={() => setQty(Math.max(product.minOrder, qty - 1))} className="grid h-10 w-10 place-items-center text-forest hover:bg-[#f4f7f4]"><Minus size={15} /></button>
-            <input value={qty} onChange={(e) => setQty(Math.max(product.minOrder, Number(e.target.value) || product.minOrder))} className="w-16 border-x border-[#e8ede9] py-2 text-center text-sm font-bold outline-none" />
+            <input value={qty} onChange={(e) => setQty(Math.max(product.minOrder, Number(e.target.value) || product.minOrder))} aria-label="Quantity" className="w-14 border-x border-[#e8ede9] py-2 text-center text-base font-bold outline-none sm:w-16" />
             <button onClick={() => setQty(qty + 1)} className="grid h-10 w-10 place-items-center text-forest hover:bg-[#f4f7f4]"><Plus size={15} /></button>
           </div>
           <span className="text-[0.76rem] text-muted">≈ <strong className="text-forest">{naira(price * qty)}</strong></span>

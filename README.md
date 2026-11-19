@@ -50,6 +50,12 @@ lib/
 ### Design system
 The visual language follows the Afrimash agricultural marketplace reference: a white, compact e-commerce canvas, deep farm green `#0F4E08` for primary actions and prices, fresh lime green `#7AB312` for the sticky category bar, lime tinted `#EEF6E7` surfaces, `Open Sans` body text and `Lexend Deca` headings. Buttons use pill-shaped CTAs with 5px compact actions, product tiles are square-imaged cards with green prices, and the header leads with search. All tokens live in `app/globals.css` (`@theme`), so the whole app re-themes from one place.
 
+### Mobile and enterprise UI
+The storefront and the four portals share one responsive design language from `app/globals.css`:
+- Public pages use a compact three-tier header; on phones the logo shrinks, the menu becomes a full navigation panel and the catalogue filters collapse behind a **Filters** button so products stay visible immediately.
+- Portal routes render only the enterprise shell (sidebar, topbar, footer) via `components/site/SiteChrome.tsx` — the marketplace header, footer and floating WhatsApp button are suppressed there. Each portal page has a single `h1` in the content area; the topbar shows a breadcrumb-style section label.
+- Touch targets are at least 38–44px, form inputs use 16px text on phones to prevent iOS zoom, dense portal grids step down from 4 → 2 → 1 columns, and wide tables scroll inside their cards. Fluid heading sizes and a shared 10px surface radius keep every screen consistent from 320px upward.
+
 ### Demo state and authentication
 This deployment-ready front end uses a shared React context persisted to `localStorage` so the whole flow is usable without credentials:
 

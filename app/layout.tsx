@@ -1,10 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { AppProvider } from "@/components/providers/AppProvider";
-import Header from "@/components/site/Header";
-import Footer from "@/components/site/Footer";
-import Toasts from "@/components/site/Toasts";
-import WhatsAppButton from "@/components/site/WhatsAppButton";
+import SiteChrome from "@/components/site/SiteChrome";
 
 export const metadata: Metadata = {
   title: {
@@ -33,13 +30,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className="min-h-screen">
       <body className="bg-[var(--color-cream)] text-[var(--color-ink)] font-sans antialiased">
         <AppProvider>
-          <Header />
-          <main className="min-h-[60vh]">
-            {children}
-          </main>
-          <Footer />
-          <WhatsAppButton />
-          <Toasts />
+          <SiteChrome>{children}</SiteChrome>
         </AppProvider>
       </body>
     </html>

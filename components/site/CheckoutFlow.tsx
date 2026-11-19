@@ -168,18 +168,21 @@ export default function CheckoutFlow() {
 
       <div className="mt-7 flex flex-wrap items-center gap-1.5">
         {steps.map((s, i) => (
-          <div key={s} className="flex flex-1 items-center gap-1.5">
-            <div className={`flex min-w-0 items-center gap-1.5 rounded-full px-2.5 py-1.5 text-[0.68rem] font-bold ${i === step ? "bg-forest text-white" : i < step ? "bg-leaf-light text-leaf" : "bg-[#eef2ee] text-muted"}`}>
+          <div key={s} className="flex min-w-0 flex-1 items-center gap-1">
+            <div className={`flex min-w-0 items-center gap-1.5 rounded-full px-2 py-1.5 text-[0.68rem] font-bold sm:px-2.5 ${i === step ? "bg-forest text-white" : i < step ? "bg-leaf-light text-leaf" : "bg-[#eef2ee] text-muted"}`}>
               <span className={`grid h-4 w-4 shrink-0 place-items-center rounded-full text-[0.6rem] ${i < step ? "bg-leaf text-white" : i === step ? "bg-white/20" : "bg-white"}`}>{i < step ? <Check size={10} /> : i + 1}</span>
               <span className="hidden sm:inline">{s}</span>
             </div>
-            {i < steps.length - 1 && <div className="h-px flex-1 bg-[#e1e8e2]" />}
+            {i < steps.length - 1 && <div className="h-px min-w-2 flex-1 bg-[#e1e8e2]" />}
           </div>
         ))}
       </div>
+      <p className="mt-2 text-[0.72rem] text-muted sm:hidden">
+        Step {step + 1} of {steps.length}: <span className="font-bold text-forest">{steps[step]}</span>
+      </p>
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_340px]">
-        <div className="card p-6">
+      <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_340px] lg:gap-8">
+        <div className="card p-4 sm:p-6">
           {errors.length > 0 && <div className="mb-4 rounded-lg bg-red-50 p-3 text-[0.78rem] text-red-700"><AlertCircle size={14} className="mr-1 inline" />{errors[0]}</div>}
 
           {step === 0 && (
@@ -269,7 +272,7 @@ export default function CheckoutFlow() {
                 {deliveryDate && <div><p className="text-muted">Preferred date</p><p className="font-bold text-forest">{deliveryDate} · {timeWindow}</p></div>}
               </div>
               <div className="mt-5 flex gap-2">
-                <input className="input" placeholder="Promo code (try ORF10)" value={promo} onChange={(e) => setPromo(e.target.value)} />
+                <input className="input min-w-0 flex-1" placeholder="Promo code (try ORF10)" value={promo} onChange={(e) => setPromo(e.target.value)} />
                 <button className="btn btn-outline shrink-0" onClick={() => { if (promo.toUpperCase() === "ORF10") { setDiscountApplied(true); pushToast("Promo applied."); } else pushToast("Invalid promo code.", "error"); }}>Apply</button>
               </div>
             </div>
@@ -291,16 +294,16 @@ export default function CheckoutFlow() {
                   );
                 })}
               </div>
-              <div className="mt-5 flex gap-2 rounded-xl bg-leaf-light p-3.5 text-[0.76rem] text-[#1c5d42]"><ShieldCheck size={17} className="shrink-0" /><span>Paymentdetails are processed by secure providers. We never treat a bank transfer as paid until the actual transaction is verified.</span></div>
+              <div className="mt-5 flex gap-2 rounded-xl bg-leaf-light p-3.5 text-[0.76rem] text-[#1c5d42]"><ShieldCheck size={17} className="shrink-0" /><span>Payment details are processed by secure providers. We never treat a bank transfer as paid until the actual transaction is verified.</span></div>
             </div>
           )}
 
-          <div className="mt-7 flex items-center justify-between border-t border-[#edf1ed] pt-5">
-            <button onClick={() => setStep((s) => Math.max(0, s - 1))} disabled={step === 0} className="btn btn-ghost"><ChevronLeft size={15} /> Back</button>
+          <div className="mt-7 flex flex-wrap items-center justify-between gap-3 border-t border-[#edf1ed] pt-5">
+            <button onClick={() => setStep((s) => Math.max(0, s - 1))} disabled={step === 0} className="btn btn-ghost btn-sm sm:btn"><ChevronLeft size={15} /> Back</button>
             {step < 4 ? (
-              <button onClick={next} disabled={!canAdvance} className="btn btn-primary">Continue <ChevronRight size={15} /></button>
+              <button onClick={next} disabled={!canAdvance} className="btn btn-primary w-full sm:w-auto">Continue <ChevronRight size={15} /></button>
             ) : (
-              <button onClick={submit} className="btn btn-primary btn-lg"><ShieldCheck size={17} /> Place Order · {naira(total)}</button>
+              <button onClick={submit} className="btn btn-primary btn-lg w-full sm:w-auto"><ShieldCheck size={17} /> Place Order · {naira(total)}</button>
             )}
           </div>
         </div>

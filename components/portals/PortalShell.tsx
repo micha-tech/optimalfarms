@@ -188,8 +188,8 @@ export default function PortalShell({
           <div className="flex min-w-0 items-center gap-3">
             <button onClick={() => setOpen(true)} className="text-forest lg:hidden"><Menu size={21} /></button>
             <div className="min-w-0">
-              <h1 className="truncate font-display text-lg font-bold text-forest md:text-xl">{title}</h1>
-              {subtitle && <p className="hidden truncate text-[0.7rem] text-muted md:block">{subtitle}</p>}
+              <p className="truncate text-[0.62rem] font-bold uppercase tracking-wider text-muted">{section} portal</p>
+              <p className="truncate font-display text-[0.9rem] font-bold text-forest md:text-[1rem]">{title}</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -202,7 +202,7 @@ export default function PortalShell({
                 <Bell size={17} />{unread > 0 && <span className="absolute -right-1 -top-1 grid h-4 w-4 place-items-center rounded-full bg-gold text-[0.6rem] font-bold text-forest">{unread}</span>}
               </button>
               {bellOpen && (
-                <div className="absolute right-0 top-full z-50 mt-2 w-80 rounded-xl border border-[#e4ebe5] bg-white p-2 shadow-xl">
+                <div className="absolute right-0 top-full z-50 mt-2 w-80 max-w-[calc(100vw-2rem)] rounded-xl border border-[#e4ebe5] bg-white p-2 shadow-xl">
                   <p className="px-2 py-1.5 text-[0.72rem] font-bold uppercase tracking-wider text-muted">Notifications</p>
                   <div className="max-h-80 overflow-y-auto">
                     {notifications.slice(0, 6).map((n) => (
@@ -227,7 +227,7 @@ export default function PortalShell({
         <div className="flex-1 p-4 md:p-6 lg:p-8">
           {(title || subtitle || actions) && (
             <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
-              <div><h2 className="font-display text-2xl font-bold text-forest">{title}</h2>{subtitle && <p className="mt-1 text-[0.82rem] text-muted">{subtitle}</p>}</div>
+              <div><h1 className="font-display text-xl font-bold text-forest md:text-2xl">{title}</h1>{subtitle && <p className="mt-1 text-[0.82rem] text-muted">{subtitle}</p>}</div>
               {actions}
             </div>
           )}

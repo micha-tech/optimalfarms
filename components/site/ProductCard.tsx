@@ -44,21 +44,21 @@ export default function ProductCard({ product }: { product: Product }) {
         <Link href={`/products/${product.slug}`} className="product-title line-clamp-2 hover:text-forest">
           {product.name}
         </Link>
-        <div className="mt-1.5 flex items-center gap-1 text-[0.68rem] text-muted">
+        <div className="mt-1.5 flex flex-wrap items-center gap-x-1 gap-y-0.5 text-[0.68rem] text-muted">
           <Star size={11} className="fill-gold text-gold" />
           <span className="font-bold text-forest">{product.rating.toFixed(2)}</span>
           <span>({product.reviewCount})</span>
           <span className="mx-0.5">·</span>
           <span>Min. {product.minOrder}</span>
         </div>
-        <div className="mt-auto flex items-end justify-between gap-2 pt-3">
-          <div>
-            <p className="price leading-tight">{naira(product.price)}</p>
-            <p className="text-[0.65rem] text-muted">{product.unit}</p>
+        <div className="mt-auto flex flex-wrap items-end justify-between gap-2 pt-3">
+          <div className="min-w-0">
+            <p className="price whitespace-nowrap leading-tight">{naira(product.price)}</p>
+            <p className="truncate text-[0.65rem] text-muted">{product.unit}</p>
           </div>
           <button
             onClick={() => addToCart(product, product.minOrder)}
-            className="btn btn-primary btn-sm flex items-center gap-1"
+            className="btn btn-primary btn-sm flex shrink-0 items-center gap-1"
             title={`Add ${product.minOrder} to cart`}
           >
             <Plus size={13} /> Add

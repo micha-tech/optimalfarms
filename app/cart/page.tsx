@@ -26,7 +26,7 @@ export default function CartPage() {
       <p className="mt-2 text-[0.88rem] text-muted">{lines.length === 0 ? "Your cart is currently empty." : `${lines.length} product line${lines.length > 1 ? "s" : ""} in your cart.`}</p>
 
       {lines.length === 0 ? (
-        <div className="card mt-8 grid place-items-center p-16 text-center">
+        <div className="card mt-8 grid place-items-center p-8 text-center sm:p-16">
           <span className="grid h-16 w-16 place-items-center rounded-full bg-leaf-light text-leaf"><ShoppingCart size={30} /></span>
           <h2 className="mt-5 font-display text-2xl font-bold text-forest">Nothing here yet</h2>
           <p className="mt-2 max-w-md text-[0.85rem] text-muted">Browse our products and add what you need. We have poultry, fish, feeds, equipment and more.</p>
@@ -36,25 +36,25 @@ export default function CartPage() {
         <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_360px]">
           <div className="space-y-3">
             {lines.map(({ item, product }) => (
-              <div key={`${item.productId}-${item.variant ?? ""}`} className="card flex gap-4 p-4">
-                <Link href={`/products/${product.slug}`}>
-                  <ProductImage src={product.image} category={product.category} alt={product.name} className="h-24 w-24 shrink-0 rounded-lg" />
+              <div key={`${item.productId}-${item.variant ?? ""}`} className="card flex gap-3 p-3 sm:gap-4 sm:p-4">
+                <Link href={`/products/${product.slug}`} className="shrink-0">
+                  <ProductImage src={product.image} category={product.category} alt={product.name} className="h-20 w-20 rounded-lg sm:h-24 sm:w-24" />
                 </Link>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <Link href={`/products/${product.slug}`} className="font-display text-[1.05rem] font-bold text-forest hover:text-leaf">{product.name}</Link>
+                      <Link href={`/products/${product.slug}`} className="font-display text-[0.95rem] font-bold leading-snug text-forest hover:text-leaf sm:text-[1.05rem]">{product.name}</Link>
                       <p className="text-[0.7rem] text-muted">{product.category}</p>
                       {item.variant && <span className="badge badge-grey mt-1.5">{item.variant}</span>}
                       {product.estimatedWeight && <p className="mt-1.5 flex items-center gap-1 text-[0.7rem] text-[#9a7412]"><AlertCircle size={12} /> Estimated weight — final invoice may be adjusted.</p>}
                     </div>
-                    <button onClick={() => removeFromCart(item.productId)} className="grid h-8 w-8 shrink-0 place-items-center rounded-lg text-muted hover:bg-red-50 hover:text-red-600" aria-label="Remove item"><Trash2 size={16} /></button>
+                    <button onClick={() => removeFromCart(item.productId)} className="grid h-9 w-9 shrink-0 place-items-center rounded-lg text-muted hover:bg-red-50 hover:text-red-600 sm:h-8 sm:w-8" aria-label="Remove item"><Trash2 size={16} /></button>
                   </div>
                   <div className="mt-3 flex flex-wrap items-end justify-between gap-3">
                     <div className="flex items-center rounded-lg border border-[#d9e2db]">
-                      <button onClick={() => setQuantity(item.productId, item.quantity - 1)} className="grid h-8 w-8 place-items-center text-forest hover:bg-[#f4f7f4]"><Minus size={14} /></button>
-                      <span className="w-10 border-x border-[#e8ede9] py-1.5 text-center text-[0.82rem] font-bold">{item.quantity}</span>
-                      <button onClick={() => setQuantity(item.productId, item.quantity + 1)} className="grid h-8 w-8 place-items-center text-forest hover:bg-[#f4f7f4]"><Plus size={14} /></button>
+                      <button onClick={() => setQuantity(item.productId, item.quantity - 1)} className="grid h-9 w-9 place-items-center text-forest hover:bg-[#f4f7f4] sm:h-8 sm:w-8" aria-label="Decrease quantity"><Minus size={14} /></button>
+                      <span className="w-9 border-x border-[#e8ede9] py-1.5 text-center text-[0.82rem] font-bold sm:w-10">{item.quantity}</span>
+                      <button onClick={() => setQuantity(item.productId, item.quantity + 1)} className="grid h-9 w-9 place-items-center text-forest hover:bg-[#f4f7f4] sm:h-8 sm:w-8" aria-label="Increase quantity"><Plus size={14} /></button>
                     </div>
                     <div className="text-right">
                       <p className="font-display text-lg font-bold text-forest">{naira(product.price * item.quantity)}</p>
@@ -79,7 +79,7 @@ export default function CartPage() {
                 <div className="flex justify-between"><span className="font-bold text-forest">Estimated total</span><span className="font-display text-xl font-bold text-forest">{naira(total)}</span></div>
               </div>
               <div className="mt-5 flex gap-2">
-                <input value={promo} onChange={(e) => setPromo(e.target.value)} placeholder="Promo code" className="input" />
+                <input value={promo} onChange={(e) => setPromo(e.target.value)} placeholder="Promo code" className="input min-w-0 flex-1" />
                 <button
                   onClick={() => {
                     if (promo.trim().toUpperCase() === "ORF10") { setApplied(true); pushToast("Promo code applied — 10% discount."); }

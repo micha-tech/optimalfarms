@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { ArrowUpRight, ArrowDownRight, Inbox } from "lucide-react";
 
 export function StatCard({ label, value, icon: Icon, tone = "green", trend, hint }: {
@@ -15,7 +16,7 @@ export function StatCard({ label, value, icon: Icon, tone = "green", trend, hint
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="truncate text-[0.7rem] font-bold uppercase tracking-wider text-muted">{label}</p>
-          <p className="mt-2 font-display text-[1.6rem] font-bold leading-none text-forest">{value}</p>
+          <p className="mt-2 truncate font-display text-[1.3rem] font-bold leading-none text-forest sm:text-[1.6rem]">{value}</p>
           {hint && <p className="mt-2 truncate text-[0.7rem] text-muted">{hint}</p>}
           {trend && <p className={`mt-2 flex items-center gap-1 text-[0.7rem] font-bold ${trend.startsWith("+") ? "text-leaf" : "text-red-600"}`}>{trend.startsWith("+") ? <ArrowUpRight size={13} /> : <ArrowDownRight size={13} />} {trend} vs last month</p>}
         </div>
@@ -30,11 +31,11 @@ export function Panel({ title, subtitle, action, children, className = "" }: {
 }) {
   return (
     <section className={`card ${className}`}>
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#edf1ed] px-5 py-4">
-        <div><h3 className="font-display text-[1.05rem] font-bold text-forest">{title}</h3>{subtitle && <p className="mt-0.5 text-[0.72rem] text-muted">{subtitle}</p>}</div>
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#edf1ed] px-4 py-3.5 sm:px-5 sm:py-4">
+        <div className="min-w-0"><h3 className="font-display text-[1.05rem] font-bold text-forest">{title}</h3>{subtitle && <p className="mt-0.5 text-[0.72rem] text-muted">{subtitle}</p>}</div>
         {action}
       </div>
-      <div className="p-5">{children}</div>
+      <div className="p-4 sm:p-5">{children}</div>
     </section>
   );
 }
@@ -44,8 +45,8 @@ export function TablePanel({ title, subtitle, action, head, rows, empty }: {
 }) {
   return (
     <section className="card overflow-hidden">
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#edf1ed] px-5 py-4">
-        <div><h3 className="font-display text-[1.05rem] font-bold text-forest">{title}</h3>{subtitle && <p className="mt-0.5 text-[0.72rem] text-muted">{subtitle}</p>}</div>
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#edf1ed] px-4 py-3.5 sm:px-5 sm:py-4">
+        <div className="min-w-0"><h3 className="font-display text-[1.05rem] font-bold text-forest">{title}</h3>{subtitle && <p className="mt-0.5 text-[0.72rem] text-muted">{subtitle}</p>}</div>
         {action}
       </div>
       {rows.length ? (
@@ -56,7 +57,7 @@ export function TablePanel({ title, subtitle, action, head, rows, empty }: {
           </table>
         </div>
       ) : (
-        <div className="grid place-items-center p-12 text-center text-muted"><Inbox size={26} /><p className="mt-2 text-[0.82rem]">{empty ?? "No records to display."}</p></div>
+        <div className="grid place-items-center p-8 text-center text-muted sm:p-12"><Inbox size={26} /><p className="mt-2 text-[0.82rem]">{empty ?? "No records to display."}</p></div>
       )}
     </section>
   );
@@ -77,10 +78,10 @@ export function Badge({ text, tone = "green" }: { text: string; tone?: "green" |
 
 export function QuickLink({ href, title, text, icon: Icon }: { href: string; title: string; text: string; icon: React.ElementType }) {
   return (
-    <a href={href} className="card card-hover flex items-start gap-3 p-4">
+    <Link href={href} className="card card-hover flex items-start gap-3 p-4">
       <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-leaf-light text-leaf"><Icon size={18} /></span>
-      <span><span className="block text-[0.84rem] font-bold text-forest">{title}</span><span className="block text-[0.72rem] text-muted">{text}</span></span>
-    </a>
+      <span className="min-w-0"><span className="block text-[0.84rem] font-bold text-forest">{title}</span><span className="block text-[0.72rem] text-muted">{text}</span></span>
+    </Link>
   );
 }
 
@@ -89,7 +90,7 @@ export function ModulePlaceholder({ title, description, points }: { title: strin
     <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
       <div className="card p-6">
         <span className="badge badge-gold">Module</span>
-        <h3 className="mt-3 font-display text-2xl font-bold text-forest">{title}</h3>
+        <h3 className="mt-3 font-display text-xl font-bold text-forest sm:text-2xl">{title}</h3>
         <p className="mt-3 text-[0.85rem] leading-relaxed text-muted">{description}</p>
         <ul className="mt-5 grid gap-2 sm:grid-cols-2">
           {points.map((p) => <li key={p} className="flex items-start gap-2 text-[0.78rem] text-[#4a584f]"><span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-leaf" /> {p}</li>)}

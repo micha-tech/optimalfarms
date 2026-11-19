@@ -76,9 +76,9 @@ export default function Header() {
       {/* Sticky header: white main row + fresh-green category bar */}
       <div className="sticky top-0 z-40 shadow-sm">
         <div className="bg-white">
-          <div className="container-x flex h-[76px] items-center gap-4">
-            <Link href="/" className="group flex w-[210px] shrink-0 items-center gap-2.5">
-              <div className="grid h-10 w-10 place-items-center rounded-[10px] bg-forest text-nav">
+          <div className="container-x flex h-16 items-center gap-2 sm:h-[76px] sm:gap-4">
+            <Link href="/" className="group flex min-w-0 shrink-0 items-center gap-2 sm:w-[210px] sm:gap-2.5">
+              <div className="grid h-9 w-9 shrink-0 place-items-center rounded-[10px] bg-forest text-nav sm:h-10 sm:w-10">
                 <svg viewBox="0 0 40 40" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M20 33V19" />
                   <path d="M20 21c-7 0-11-4-11-10 6 0 11 3 11 10Z" />
@@ -87,8 +87,8 @@ export default function Header() {
                 </svg>
               </div>
               <div className="leading-tight">
-                <div className="font-display text-[1.02rem] font-bold text-forest">Optimal Royal</div>
-                <div className="text-[0.55rem] font-bold uppercase tracking-[0.16em] text-leaf">Integrated Farms Ltd</div>
+                <div className="font-display text-[0.9rem] font-bold text-forest sm:text-[1.02rem]">Optimal Royal</div>
+                <div className="hidden text-[0.55rem] font-bold uppercase tracking-[0.16em] text-leaf sm:block">Integrated Farms Ltd</div>
               </div>
             </Link>
 
@@ -127,14 +127,17 @@ export default function Header() {
                 onMouseEnter={() => setAccountOpen(true)}
                 onMouseLeave={() => setAccountOpen(false)}
               >
-                <Link
-                  href={user ? portalHref(user.role) : "/login"}
+                <button
+                  type="button"
+                  onClick={() => setAccountOpen(!accountOpen)}
+                  aria-expanded={accountOpen}
+                  aria-label="Account menu"
                   className="flex h-10 items-center gap-1.5 rounded-[5px] border border-border px-3 text-[0.75rem] font-bold text-forest hover:border-nav"
                 >
                   <UserRound size={17} />
                   {hydrated ? (user ? (user.role === "corporate" ? "Business" : "Account") : "Sign In") : "Sign In"}
                   <ChevronDown size={13} />
-                </Link>
+                </button>
                 {accountOpen && (
                   <div className="absolute right-0 top-full w-60 pt-2">
                     <div className="rounded-[10px] border border-border bg-white p-2 shadow-xl">
@@ -168,7 +171,9 @@ export default function Header() {
               <button
                 className="grid h-10 w-10 place-items-center rounded-[5px] text-forest hover:bg-lime-light lg:hidden"
                 onClick={() => setOpen(!open)}
-                aria-label="Toggle menu"
+                aria-label={open ? "Close menu" : "Open menu"}
+                aria-expanded={open}
+                aria-controls="mobile-navigation"
               >
                 {open ? <X size={22} /> : <Menu size={22} />}
               </button>
@@ -191,7 +196,7 @@ export default function Header() {
               ))}
             </div>
             <div className="relative" onMouseEnter={() => setShopOpen(true)} onMouseLeave={() => setShopOpen(false)}>
-              <button className="flex items-center gap-1.5 rounded-[5px] px-2.5 py-1.5 text-[0.75rem] font-bold text-white hover:bg-forest">
+              <button onClick={() => setShopOpen(!shopOpen)} aria-expanded={shopOpen} aria-label="More categories" className="flex items-center gap-1.5 rounded-[5px] px-2.5 py-1.5 text-[0.75rem] font-bold text-white hover:bg-forest">
                 More <ChevronDown size={13} />
               </button>
               {shopOpen && (
@@ -225,12 +230,14 @@ export default function Header() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="border-t border-border bg-white lg:hidden">
+        <nav id="mobile-navigation" aria-label="Mobile navigation" className="border-t border-border bg-white lg:hidden">
           <div className="container-x flex flex-col gap-0.5 py-3">
-            <form action="/products" method="GET" className="relative mb-2">
-              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
-              <input name="q" placeholder="Search products..." className="input pl-9 pr-24" />
-              <button className="btn btn-primary btn-sm absolute right-1 top-1 h-8">Search</button>
+            <form action="/products" method="GET" className="mb-3 flex gap-2">
+              <div className="relative min-w-0 flex-1">
+                <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
+                <input name="q" placeholder="Search products..." className="input w-full pl-9" aria-label="Search products" />
+              </div>
+              <button type="submit" className="btn btn-primary btn-sm shrink-0">Search</button>
             </form>
             {nav.map((item) => (
               <Link key={item.label} href={item.href} className={`rounded-[5px] px-3 py-2.5 text-[0.85rem] font-semibold ${isActive(item.href) ? "bg-lime-light text-forest" : "text-forest"}`}>
@@ -257,7 +264,7 @@ export default function Header() {
               <Headphones size={14} className="text-leaf" /> Need help? Call +234 803 000 1122
             </div>
           </div>
-        </div>
+        </nav>
       )}
     </>
   );

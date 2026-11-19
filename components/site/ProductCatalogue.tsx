@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Search, SlidersHorizontal, X, Check } from "lucide-react";
+import { Search, SlidersHorizontal, X, Check, ChevronDown } from "lucide-react";
 import { categories, products } from "@/lib/data";
 import ProductCard from "./ProductCard";
 import type { ProductCategory } from "@/lib/types";
@@ -16,6 +16,7 @@ export default function ProductCatalogue() {
   const [sort, setSort] = useState("featured");
   const [onlyAvailable, setOnlyAvailable] = useState(false);
   const [serviceOnly, setServiceOnly] = useState(initialService);
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const filtered = useMemo(() => {
     let items = products.filter((p) => {
@@ -33,18 +34,27 @@ export default function ProductCatalogue() {
   }, [category, query, sort, onlyAvailable, serviceOnly]);
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[250px_1fr]">
-      <aside className="lg:sticky lg:top-24 lg:self-start">
+    <div className="grid gap-6 lg:grid-cols-[250px_1fr] lg:gap-8">
+      <button
+        type="button"
+        onClick={() => setFiltersOpen(!filtersOpen)}
+        aria-expanded={filtersOpen}
+        className="btn btn-outline w-full justify-between lg:hidden"
+      >
+        <span className="flex items-center gap-2"><SlidersHorizontal size={16} /> Filters</span>
+        <ChevronDown size={16} className={`transition-transform ${filtersOpen ? "rotate-180" : ""}`} />
+      </button>
+      <aside className={`${filtersOpen ? "block" : "hidden"} lg:sticky lg:top-24 lg:block lg:self-start`}>
         <div className="card p-4">
-          <div className="mb-3 flex items-center gap-2 font-bold text-forest"><SlidersHorizontal size={16} /> Filters</div>
+          <div className="mb-3 hidden items-center gap-2 font-bold text-forest lg:flex"><SlidersHorizontal size={16} /> Filters</div>
           <div className="space-y-1.5">
-            <button onClick={() => setCategory("All")} className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-[0.8rem] font-semibold ${category === "All" ? "bg-forest text-white" : "text-[#48564e] hover:bg-[#f2f6f2]"}`}>
+            <button onClick={() => { setCategory("All"); setFiltersOpen(false); }} className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-[0.8rem] font-semibold ${category === "All" ? "bg-forest text-white" : "text-[#48564e] hover:bg-[#f2f6f2]"}`}>
               All products <span className="text-[0.7rem] opacity-70">{products.length}</span>
             </button>
             {categories.map((cat) => {
               const count = products.filter((p) => p.category === cat.name).length;
               return (
-                <button key={cat.name} onClick={() => setCategory(cat.name)} className={`flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2 text-left text-[0.78rem] font-semibold ${category === cat.name ? "bg-forest text-white" : "text-[#48564e] hover:bg-[#f2f6f2]"}`}>
+                <button key={cat.name} onClick={() => { setCategory(cat.name); setFiltersOpen(false); }} className={`flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2 text-left text-[0.78rem] font-semibold ${category === cat.name ? "bg-forest text-white" : "text-[#48564e] hover:bg-[#f2f6f2]"}`}>
                   {cat.title} <span className="text-[0.7rem] opacity-70">{count}</span>
                 </button>
               );
@@ -87,7 +97,7 @@ export default function ProductCatalogue() {
         </div>
 
         {filtered.length ? (
-          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 sm:gap-5 xl:grid-cols-3">
             {filtered.map((product) => <ProductCard key={product.id} product={product} />)}
           </div>
         ) : (
